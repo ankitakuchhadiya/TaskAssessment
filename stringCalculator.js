@@ -7,11 +7,18 @@ function stringCal(numbers) {
 
     if (numbers.startsWith("//")) {
         const [delimiterPart, ...numberParts] = numbers.split('\n');
-        delimiter = new RegExp(delimiterPart.slice(2));
+        const customDelimiter = delimiterPart.slice(2);
+
+        if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+            delimiter = new RegExp(customDelimiter.slice(1, -1).split('][').map(escapeRegExp).join('|'));
+        } else {
+            delimiter = new RegExp(escapeRegExp(customDelimiter));
+        }
+
         numString = numberParts.join('\n');
     }
 
-    const numberArr = numbers.split(delimiter).map(num => parseInt(num, 10)).filter(num => num <= 1000);
+    const numberArr = numString.split(delimiter).map(num => parseInt(num, 10)).filter(num => num <= 1000);
 
     const negativeNumbers = numberArr.filter(num => num < 0);
 
@@ -19,6 +26,10 @@ function stringCal(numbers) {
         throw new Error(`negative numbers not allowed: ${negativeNumbers.join(",")}`);
     }
     return numberArr.reduce((sum, num) => sum + num, 0);
+}
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 module.exports = stringCal;
