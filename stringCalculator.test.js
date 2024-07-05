@@ -32,5 +32,10 @@ test('should throw an error for multiple negative numbers', () => {
     expect(() => stringCal("1,-2,3,-4")).toThrow("negative numbers not allowed: -2,-4");
 });
 
+test('should ignore numbers bigger than 1000', () => {
+    expect(stringCal("2,1001")).toBe(2);
+});
+
+
 
 

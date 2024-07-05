@@ -11,7 +11,7 @@ function stringCal(numbers) {
         numString = numberParts.join('\n');
     }
 
-    const numberArr = numString.split(delimiter).map(num => parseInt(num, 10));
+    const numberArr = numbers.split(delimiter).map(num => parseInt(num, 10)).filter(num => num <= 1000);
 
     const negativeNumbers = numberArr.filter(num => num < 0);
 
