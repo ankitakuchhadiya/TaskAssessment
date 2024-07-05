@@ -24,4 +24,13 @@ test('should support different delimiters', () => {
     expect(stringCal("//;\n1;2")).toBe(3);
 });
 
+test('should throw an error for negative numbers', () => {
+    expect(() => stringCal("1,-2,3")).toThrow("negative numbers not allowed: -2");
+});
+
+test('should throw an error for multiple negative numbers', () => {
+    expect(() => stringCal("1,-2,3,-4")).toThrow("negative numbers not allowed: -2,-4");
+});
+
+
 

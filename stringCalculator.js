@@ -12,6 +12,12 @@ function stringCal(numbers) {
     }
 
     const numberArr = numString.split(delimiter).map(num => parseInt(num, 10));
+
+    const negativeNumbers = numberArr.filter(num => num < 0);
+
+    if (negativeNumbers.length > 0) {
+        throw new Error(`negative numbers not allowed: ${negativeNumbers.join(",")}`);
+    }
     return numberArr.reduce((sum, num) => sum + num, 0);
 }
 
